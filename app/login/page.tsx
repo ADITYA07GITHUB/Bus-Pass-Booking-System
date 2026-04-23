@@ -161,13 +161,6 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Demo credentials */}
-            <div className="rounded-lg bg-accent/50 border border-border p-3 text-xs space-y-1">
-              <p className="font-semibold text-foreground">Demo Credentials</p>
-              <p className="text-muted-foreground">Admin: <span className="font-mono text-foreground">admin@demo.com</span> / <span className="font-mono text-foreground">admin123</span></p>
-              <p className="text-muted-foreground">User: <span className="font-mono text-foreground">user@demo.com</span> / <span className="font-mono text-foreground">user1234</span></p>
-            </div>
-
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Signing in...</>

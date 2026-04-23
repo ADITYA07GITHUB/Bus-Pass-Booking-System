@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Find user with password (password is excluded by default)
+    // Find user WITH password field (excluded by default in schema)
     const user = await User.findOne({ email: email.toLowerCase() }).select("+password");
     if (!user) {
       return NextResponse.json(
@@ -50,10 +50,23 @@ export async function POST(req: NextRequest) {
       role: user.role,
     });
 
+    // Build safe user object — NEVER send password hash to frontend
+    const safeUser = {
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      address: user.address,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+
     return NextResponse.json({
       success: true,
       message: "Login successful",
-      user: user.toJSON(),
+      user: safeUser,
       token,
     });
   } catch (error) {

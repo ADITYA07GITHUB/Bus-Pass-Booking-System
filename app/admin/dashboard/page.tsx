@@ -2,20 +2,24 @@
 // app/admin/dashboard/page.tsx
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Users, CreditCard, Clock, TrendingUp, CheckCircle, XCircle, AlertCircle, ArrowRight } from "lucide-react";
-import { useAppDispatch, useAdmin } from "@/hooks";
+import { Users, CreditCard, Clock, TrendingUp, CheckCircle, ArrowRight } from "lucide-react";
+import { useAppDispatch, useAdmin, useAuth } from "@/hooks";
 import { fetchAnalytics, fetchAllPasses } from "@/store/slices/adminSlice";
-import { formatCurrency, formatDate, getStatusColor } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Legend,
+} from "recharts";
 
 const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
 
-function StatCard({ icon: Icon, label, value, change, color }: {
-  icon: React.ElementType; label: string; value: string | number; change?: string; color: string;
+function StatCard({ icon: Icon, label, value, color }: {
+  icon: React.ElementType; label: string; value: string | number; color: string;
 }) {
   return (
     <Card>
@@ -24,7 +28,6 @@ function StatCard({ icon: Icon, label, value, change, color }: {
           <div>
             <p className="text-sm text-muted-foreground mb-1">{label}</p>
             <p className="text-3xl font-bold text-foreground">{value}</p>
-            {change && <p className="text-xs text-emerald-600 font-medium mt-1">{change}</p>}
           </div>
           <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
             <Icon className="w-6 h-6" />
@@ -38,11 +41,31 @@ function StatCard({ icon: Icon, label, value, change, color }: {
 export default function AdminDashboardPage() {
   const dispatch = useAppDispatch();
   const { analytics, allPasses, isLoading } = useAdmin();
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  // 🔒 Auth guard — redirect non-admin users away
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+    if (user?.role !== "admin") {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, user, router]);
 
   useEffect(() => {
-    dispatch(fetchAnalytics());
-    dispatch(fetchAllPasses({ limit: 5, status: "pending" }));
-  }, [dispatch]);
+    if (isAuthenticated && user?.role === "admin") {
+      dispatch(fetchAnalytics());
+      dispatch(fetchAllPasses({ limit: 5, status: "pending" }));
+    }
+  }, [dispatch, isAuthenticated, user]);
+
+  // Don't render until auth is confirmed
+  if (!isAuthenticated || user?.role !== "admin") {
+    return null;
+  }
 
   return (
     <div>
@@ -92,7 +115,9 @@ export default function AdminDashboardPage() {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-sm">No revenue data yet</div>
+              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-sm">
+                No revenue data yet
+              </div>
             )}
           </CardContent>
         </Card>
@@ -117,16 +142,16 @@ export default function AdminDashboardPage() {
                       <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Legend
-                    formatter={(value) => <span className="text-xs capitalize">{value}</span>}
-                  />
+                  <Legend formatter={(value) => <span className="text-xs capitalize">{value}</span>} />
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }}
                   />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-sm">No data yet</div>
+              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-sm">
+                No data yet
+              </div>
             )}
           </CardContent>
         </Card>
@@ -164,18 +189,23 @@ export default function AdminDashboardPage() {
           ) : (
             <div className="divide-y divide-border">
               {allPasses.slice(0, 5).map((pass) => {
-                const user = typeof pass.userId === "object" ? pass.userId : null;
+                const passUser = typeof pass.userId === "object" ? pass.userId : null;
                 const route = typeof pass.routeId === "object" ? pass.routeId : null;
                 return (
                   <div key={pass._id} className="flex items-center justify-between py-3">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
-                        {(user as { name?: string })?.name?.charAt(0) ?? "?"}
+                        {(passUser as { name?: string })?.name?.charAt(0) ?? "?"}
                       </div>
                       <div>
-                        <p className="font-medium text-sm">{(user as { name?: string })?.name ?? "Unknown User"}</p>
+                        <p className="font-medium text-sm">
+                          {(passUser as { name?: string })?.name ?? "Unknown User"}
+                        </p>
                         <p className="text-xs text-muted-foreground">
-                          {route ? `${route.source} → ${route.destination}` : "N/A"} • {formatDate(pass.createdAt)}
+                          {route
+                            ? `${(route as { source?: string }).source} → ${(route as { destination?: string }).destination}`
+                            : "Route N/A"
+                          } • {formatDate(pass.createdAt)}
                         </p>
                       </div>
                     </div>

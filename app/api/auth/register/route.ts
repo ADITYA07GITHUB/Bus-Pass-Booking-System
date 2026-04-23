@@ -45,11 +45,24 @@ export async function POST(req: NextRequest) {
       role: user.role,
     });
 
+    // Build safe user object — NEVER send password hash to frontend
+    const safeUser = {
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      address: user.address,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+
     return NextResponse.json(
       {
         success: true,
         message: "Account created successfully",
-        user: user.toJSON(),
+        user: safeUser,
         token,
       },
       { status: 201 }
