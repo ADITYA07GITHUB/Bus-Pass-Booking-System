@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     const filter: Record<string, unknown> = {};
     if (status) filter.status = status;
 
-    let query = BusPass.find(filter)
+    const query = BusPass.find(filter)
       .populate("userId", "name email phone")
       .populate("routeId", "source destination fare")
       .sort({ createdAt: -1 });

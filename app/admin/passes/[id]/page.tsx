@@ -197,7 +197,6 @@ export default function AdminPassDetailPage({ params }: { params: Promise<{ id: 
         <DialogContent>
           <DialogHeader><DialogTitle>Reject Application</DialogTitle></DialogHeader>
           <Textarea
-            placeholder="Enter reason for rejection..."
             rows={4}
             value={rejectionReason}
             onChange={(e) => setRejectionReason(e.target.value)}

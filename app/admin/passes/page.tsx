@@ -142,7 +142,6 @@ export default function AdminPassesPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search by user name, email, or pass number..."
             className="pl-10"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -234,7 +233,6 @@ export default function AdminPassesPage() {
               Please provide a reason for rejecting this application. The applicant will be notified.
             </p>
             <Textarea
-              placeholder="Enter rejection reason..."
               rows={3}
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}

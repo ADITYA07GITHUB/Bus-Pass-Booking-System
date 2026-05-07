@@ -203,26 +203,26 @@ export default function AdminRoutesPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>Source</Label>
-                <Input placeholder="e.g. Pune Station" {...register("source")} />
+                <Input {...register("source")} />
                 {errors.source && <p className="text-xs text-destructive">{errors.source.message}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Destination</Label>
-                <Input placeholder="e.g. Hinjewadi" {...register("destination")} />
+                <Input {...register("destination")} />
                 {errors.destination && <p className="text-xs text-destructive">{errors.destination.message}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Fare per Trip (₹)</Label>
-                <Input type="number" placeholder="50" {...register("fare")} />
+                <Input type="number" {...register("fare")} />
                 {errors.fare && <p className="text-xs text-destructive">{errors.fare.message}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Distance (km) <span className="text-muted-foreground text-xs">optional</span></Label>
-                <Input type="number" placeholder="15" {...register("distance")} />
+                <Input type="number" {...register("distance")} />
               </div>
               <div className="col-span-2 space-y-1.5">
                 <Label>Duration <span className="text-muted-foreground text-xs">optional</span></Label>
-                <Input placeholder="e.g. 45 mins" {...register("duration")} />
+                <Input {...register("duration")} />
               </div>
             </div>
             <DialogFooter>

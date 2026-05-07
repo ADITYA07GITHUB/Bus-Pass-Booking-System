@@ -48,7 +48,8 @@ const RouteSchema = new Schema<IRoute>(
   {
     timestamps: true,
     toJSON: {
-      transform: (_doc, ret) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transform: (_doc, ret: any) => {
         ret._id = ret._id.toString();
         return ret;
       },

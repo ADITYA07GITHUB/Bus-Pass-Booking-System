@@ -9,7 +9,7 @@ import { fetchMyPasses } from "@/store/slices/passSlice";
 import { formatDate, formatCurrency, getStatusColor } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BusPass } from "@/types";
@@ -97,7 +97,6 @@ export default function MyPassesPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search by route or pass number..."
             className="pl-10"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -106,7 +105,7 @@ export default function MyPassesPage() {
         <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
           <SelectTrigger className="w-full sm:w-48">
             <Filter className="w-4 h-4 mr-2" />
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>

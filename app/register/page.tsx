@@ -84,7 +84,7 @@ export default function RegisterPage() {
                 <Label htmlFor="name">Full Name</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="name" placeholder="John Doe" className={cn("pl-10", errors.name && "border-destructive")} {...register("name")} />
+                  <Input id="name" className={cn("pl-10", errors.name && "border-destructive")} {...register("name")} />
                 </div>
                 {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
               </div>
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                 <Label htmlFor="email">Email Address</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="email" type="email" placeholder="you@example.com" className={cn("pl-10", errors.email && "border-destructive")} {...register("email")} />
+                  <Input id="email" type="email" className={cn("pl-10", errors.email && "border-destructive")} {...register("email")} />
                 </div>
                 {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
               </div>
@@ -104,7 +104,7 @@ export default function RegisterPage() {
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="password" type="password" placeholder="••••••••" className={cn("pl-10", errors.password && "border-destructive")} {...register("password")} />
+                  <Input id="password" type="password" className={cn("pl-10", errors.password && "border-destructive")} {...register("password")} />
                 </div>
                 {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
               </div>
@@ -114,7 +114,7 @@ export default function RegisterPage() {
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="confirmPassword" type="password" placeholder="••••••••" className={cn("pl-10", errors.confirmPassword && "border-destructive")} {...register("confirmPassword")} />
+                  <Input id="confirmPassword" type="password" className={cn("pl-10", errors.confirmPassword && "border-destructive")} {...register("confirmPassword")} />
                 </div>
                 {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword.message}</p>}
               </div>
@@ -124,7 +124,7 @@ export default function RegisterPage() {
                 <Label htmlFor="phone">Phone <span className="text-muted-foreground">(optional)</span></Label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="phone" placeholder="9876543210" className={cn("pl-10", errors.phone && "border-destructive")} {...register("phone")} />
+                  <Input id="phone" className={cn("pl-10", errors.phone && "border-destructive")} {...register("phone")} />
                 </div>
                 {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
               </div>
@@ -134,7 +134,7 @@ export default function RegisterPage() {
                 <Label htmlFor="address">Address <span className="text-muted-foreground">(optional)</span></Label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input id="address" placeholder="Your address" className="pl-10" {...register("address")} />
+                  <Input id="address" className="pl-10" {...register("address")} />
                 </div>
               </div>
             </div>

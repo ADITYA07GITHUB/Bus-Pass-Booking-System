@@ -124,7 +124,6 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@example.com"
                   className={cn("pl-10", errors.email && "border-destructive")}
                   {...register("email")}
                 />
@@ -144,7 +143,6 @@ export default function LoginPage() {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
                   className={cn("pl-10 pr-10", errors.password && "border-destructive")}
                   {...register("password")}
                 />

@@ -38,6 +38,7 @@ export interface BusPass {
   passNumber: string;
   fare: number;
   rejectionReason?: string;
+  approvedAt?: string;
   createdAt: string;
   updatedAt: string;
 }

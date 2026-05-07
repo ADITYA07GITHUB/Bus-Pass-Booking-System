@@ -136,7 +136,7 @@ export default function ProfilePage() {
                     <Label htmlFor="phone">Phone Number</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input id="phone" placeholder="9876543210" className="pl-10" {...register("phone")} />
+                      <Input id="phone" className="pl-10" {...register("phone")} />
                     </div>
                     {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
                   </div>
@@ -145,7 +145,7 @@ export default function ProfilePage() {
                     <Label htmlFor="address">Address</Label>
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input id="address" placeholder="Your address" className="pl-10" {...register("address")} />
+                      <Input id="address" className="pl-10" {...register("address")} />
                     </div>
                   </div>
                 </div>

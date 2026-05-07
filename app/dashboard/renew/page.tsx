@@ -3,16 +3,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { RotateCcw, AlertCircle, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
+import { RotateCcw, AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 import { useAppDispatch, usePasses } from "@/hooks";
 import { fetchMyPasses, renewPass } from "@/store/slices/passSlice";
 import { formatDate, formatCurrency, isPassExpired, getStatusColor } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
-import { BusPass } from "@/types";
+
 
 export default function RenewPassPage() {
   const dispatch = useAppDispatch();

@@ -27,8 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-, "scripts/seed.ts"  ],
+    "**/*.mts",
+    "scripts/seed.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -77,7 +77,8 @@ const BusPassSchema = new Schema<IBusPass>(
   {
     timestamps: true,
     toJSON: {
-      transform: (_doc, ret) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transform: (_doc, ret: any) => {
         ret._id = ret._id.toString();
         if (ret.userId && typeof ret.userId === "object") {
           ret.userId._id = ret.userId._id?.toString();
