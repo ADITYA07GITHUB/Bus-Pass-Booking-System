@@ -1,14 +1,9 @@
 // scripts/seed.ts
 // Run this ONCE to create the initial admin user in your MongoDB database.
-// Usage: npx ts-node scripts/seed.ts
-//   OR:  npx tsx scripts/seed.ts
+// Usage: bun run scripts/seed.ts
 
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import * as dotenv from "dotenv";
-
-// Load env variables from .env.local
-dotenv.config({ path: ".env.local" });
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {

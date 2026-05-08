@@ -92,11 +92,10 @@ const BusPassSchema = new Schema<IBusPass>(
   }
 );
 
-// Indexes for common queries
+// Indexes for common queries (passNumber already indexed via unique: true)
 BusPassSchema.index({ userId: 1, status: 1 });
 BusPassSchema.index({ status: 1 });
 BusPassSchema.index({ validTo: 1 });
-BusPassSchema.index({ passNumber: 1 });
 
 export const BusPass =
   mongoose.models.BusPass || mongoose.model<IBusPass>("BusPass", BusPassSchema);
